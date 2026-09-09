@@ -1,0 +1,7 @@
+{
+  "name": "cipherline",
+  "private": true,
+  "scripts": {
+    "test:function": "node --check netlify/functions/transform.js"
+  }
+}

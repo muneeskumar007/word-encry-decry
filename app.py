@@ -21,6 +21,8 @@ def transform():
         return jsonify(error="Enter some text to process."), 400
     if not isinstance(passphrase, str) or len(passphrase) < 4:
         return jsonify(error="Use a passphrase with at least 4 characters."), 400
+    if mode not in {"encrypt", "decrypt"}:
+        return jsonify(error="Choose encrypt or decrypt."), 400
 
     try:
         result = encrypt_text(text, passphrase) if mode == "encrypt" else decrypt_text(text.strip(), passphrase)
