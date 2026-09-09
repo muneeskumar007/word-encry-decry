@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111614">
+  <title>Cipherline | Private text, handled well</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Cipherline home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Cipherline</span>
+      </a>
+      <span class="status-pill"><span class="status-dot"></span>Local encryption</span>
+    </header>
+
+    <main class="workspace">
+      <section class="intro">
+        <p class="eyebrow">Private by design</p>
+        <h1>Your words.<br><em>Under lock.</em></h1>
+        <p class="intro-copy">A quiet little vault for the text you do not want floating around in plain sight.</p>
+        <div class="trust-row">
+          <span class="trust-item"><span class="check">&#10003;</span> No storage</span>
+          <span class="trust-item"><span class="check">&#10003;</span> Random salt</span>
+        </div>
+      </section>
+
+      <section class="vault-panel" aria-labelledby="tool-title">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Text utility / 01</p>
+            <h2 id="tool-title">Secure a message</h2>
+          </div>
+          <div class="lock-icon" aria-hidden="true">&#9670;</div>
+        </div>
+
+        <div class="mode-switch" role="group" aria-label="Choose an operation">
+          <button class="mode-button active" type="button" data-mode="encrypt">Encrypt <span>01</span></button>
+          <button class="mode-button" type="button" data-mode="decrypt">Decrypt <span>02</span></button>
+        </div>
+
+        <form id="crypto-form">
+          <label class="field-label" for="message">Message <span id="message-hint">Plain text in</span></label>
+          <textarea id="message" name="message" rows="7" placeholder="Write or paste something private..."></textarea>
+
+          <div class="field-meta">
+            <label class="field-label" for="passphrase">Passphrase</label>
+            <span class="field-hint">4+ characters</span>
+          </div>
+          <div class="passphrase-wrap">
+            <input id="passphrase" name="passphrase" type="password" minlength="4" placeholder="The key only you know" required>
+            <button class="visibility-button" id="toggle-passphrase" type="button" aria-label="Show passphrase">Show</button>
+          </div>
+
+          <button class="primary-button" type="submit"><span id="submit-label">Encrypt message</span><span class="arrow" aria-hidden="true">&#8599;</span></button>
+        </form>
+
+        <div class="result-wrap" id="result-wrap" hidden>
+          <div class="result-heading">
+            <span class="field-label" id="result-label">Encrypted output</span>
+            <button class="copy-button" id="copy-result" type="button">Copy <span aria-hidden="true">&#8599;</span></button>
+          </div>
+          <div class="result-box" id="result" role="status" aria-live="polite"></div>
+        </div>
+
+        <p class="error-message" id="error-message" role="alert" hidden></p>
+      </section>
+
+      <aside class="note-card">
+        <div class="note-number">02</div>
+        <div>
+          <p class="panel-kicker">Good to know</p>
+          <h3>Your passphrase stays yours.</h3>
+          <p>There is no account, database, or recovery door. Lose the passphrase and the message stays sealed.</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer"><span>Built for small secrets.</span><span>PBKDF2 + Fernet</span></footer>
+  </div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
